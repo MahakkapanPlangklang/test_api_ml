@@ -3,9 +3,7 @@ from pymongo import MongoClient
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
-
 load_dotenv()
-
 app = FastAPI()
 
 app.add_middleware(
@@ -38,7 +36,7 @@ def get_hero_by_name(name: str):
 
 @app.get("/heroes/type/{type_name}")
 def get_heroes_by_type(type_name: str):
-    heroes = list(collection.find({"Role": type_name}))
+    heroes = list(collection.find({"Type": type_name}))
     if not heroes:
         raise HTTPException(status_code=404, detail=f"No heroes found in type: {type_name}")
     return [fix_id(hero) for hero in heroes]
